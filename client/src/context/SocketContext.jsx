@@ -1,3 +1,4 @@
+import React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import io from "socket.io-client";
 
@@ -12,7 +13,7 @@ export function SocketProvider({ children }) {
   //   setSocket(newSocket);
   //   return () => newSocket.close();
   // }, []);
-  const socket = io("https://sonya-voice-chat-server.onrender.com/");
+  const socket = io("http://localhost:5454");
   socket.connect();
   return (
     <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>

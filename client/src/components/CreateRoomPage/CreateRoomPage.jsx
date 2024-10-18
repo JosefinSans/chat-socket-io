@@ -1,12 +1,9 @@
+import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-// import { Socket } from "socket.io-client";
-// // import { Socket } from "socket.io-client";
-// import { useSocket } from "../SocketContext";
-// import { Socket } from "socket.io-client";
-const CreateRoom = () => {
-  // const socket = useSocket();
+
+const CreateRoomPage = () => {
   const navigate = useNavigate();
   const [roomName, setRoomName] = useState("");
   const [participantLimit, setParticipantLimit] = useState("");
@@ -16,19 +13,11 @@ const CreateRoom = () => {
       alert("Participant limit must be at least 2");
       return;
     }
-    const res = await axios.post(
-      "https://sonya-voice-chat-server.onrender.com/createroom",
-      {
-        name: roomName,
-        countUsers: participantLimit,
-      }
-    );
+    const res = await axios.post("http://localhost:5454/createroom", {
+      name: roomName,
+      countUsers: participantLimit,
+    });
 
-    // Logic to create the room
-
-    // socket.emit("joinRoom", res.data._id).then(() => {
-    //   console.log("sucsees");
-    // });
     navigate("/rooms");
     console.log("Room created:", res.data._id);
   };
@@ -69,4 +58,4 @@ const CreateRoom = () => {
   );
 };
 
-export default CreateRoom;
+export default CreateRoomPage;

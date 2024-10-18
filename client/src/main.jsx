@@ -1,11 +1,12 @@
+import React from "react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
-import { SocketProvider } from "./SocketContext";
+import { SocketProvider } from "./context/SocketContext.jsx";
 import { BrowserRouter as Router } from "react-router-dom";
-import { RoomProvider } from "./RoomContext.jsx";
-import { UserProvider } from "./UserCountContext.jsx";
+import { RoomProvider } from "./context/RoomContext.jsx";
+import { UserProvider } from "./context/UserCountContext.jsx";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Router>

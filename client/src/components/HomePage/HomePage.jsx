@@ -1,12 +1,8 @@
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-// import { useSocket } from "../SocketContext";
-// import { useRoom } from "../RoomContext";
 
-function AuthenticationHomePage() {
-  // const socket = useSocket();
-  // const { currentRoom } = useRoom();
-
+function HomePage() {
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
@@ -56,4 +52,4 @@ function AuthenticationHomePage() {
     </div>
   );
 }
-export default AuthenticationHomePage;
+export default HomePage;

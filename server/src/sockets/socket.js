@@ -12,7 +12,7 @@ export const socketHandler = (server) => {
     },
   });
   io.on("connection", (socket) => {
-    console.log("user connected");
+    console.log("user connected " + socket.id);
 
     socket.on("joinRoom", async (roomID) => {
       socket.join(roomID);
@@ -52,7 +52,7 @@ export const socketHandler = (server) => {
       }
     });
     socket.on("disconnect", async () => {
-      console.log("user dissconnected");
+      console.log("user dissconnected" + socket.id);
     });
     socket.on("sendMessage", async ({ room, messageData }) => {
       try {

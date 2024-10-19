@@ -1,16 +1,10 @@
 import React from "react";
-import { useSocket } from "../../context/SocketContext";
 import { useRoom } from "../../context/RoomContext";
 import { useNavigate } from "react-router-dom";
 
 export default function ListBlock({ rooms }) {
   const navigate = useNavigate();
-  const { setCurrentRoom } = useRoom();
-  const socket = useSocket();
-
   function handleChoseRoom(id) {
-    setCurrentRoom(id);
-    socket.emit("joinRoom", id);
     navigate("/Chat", { state: { id: id } });
   }
 

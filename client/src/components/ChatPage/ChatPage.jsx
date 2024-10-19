@@ -3,20 +3,16 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useSocket } from "../../context/SocketContext";
-
-// import { useRoom } from "../RoomContext";
-// import { useCount } from "../../context/UserCountContext";
-// import { useOnlineStatus } from "../../context/useOnlineStatus";
+import { useRoom } from "../../context/RoomContext";
 
 function ChatPage() {
-  // const { currentRoom } = useRoom();
-  // const isOnline = useOnlineStatus();
+  const { setCurrentRoom } = useRoom();
+
   const socket = useSocket();
   const location = useLocation();
-  // const { count, setCount } = useCount();
+
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  // const prevLocationRef = useRef(location);
 
   const userID = localStorage.getItem("id");
   const navigate = useNavigate();
@@ -26,6 +22,8 @@ function ChatPage() {
   }
 
   useEffect(() => {
+    socket.emit("joinRoom", location.state.id);
+    setCurrentRoom(location.state.id);
     const fetchMessages = async (roomID) => {
       const response = await fetch(`http://localhost:5454/messages/${roomID}`);
       const data = await response.json();
@@ -36,34 +34,11 @@ function ChatPage() {
     socket.on("newMessage", (message) => {
       setMessages((prevMessages) => [message, ...prevMessages]);
     });
-    // if (!isOnline) {
-    //   socket.emit("leaveRoom", location.state.id);
-    // }
-    // socket.on("userCount", (count) => {
-    //   setCount(count);
-    // });
-    // socket.on("usersCount", (count) => {
-    //   setCount(count);
-    // });
 
     return () => {
       socket.off("newMessage");
     };
   }, [socket]);
-
-  // useEffect(() => {
-  // if (prevLocationRef.current.pathname !== location.pathname) {
-  //   console.log("Маршрут изменился:", location.pathname);
-  //   socket.emit("leaveRoom", location.state.id);
-  //   // Здесь можно добавить вашу логику
-  // }
-  // // prevLocationRef.current = location;
-  // console.log("Location changed!", location.pathname);
-  // return () => {
-  //   socket.off("leaveRoom");
-  // };
-  //   socket.emit("leaveRoom", location.state.id);
-  // }, [location, socket]);
 
   function handleSendMessage() {
     if (message.trim()) {

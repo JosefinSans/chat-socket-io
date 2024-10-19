@@ -2,9 +2,14 @@ import React from "react";
 import { useEffect, useState } from "react";
 import ListBlock from "./ListBlock";
 import ButtonsBlock from "./ButtonsBlock";
+import { useRoom } from "../../context/RoomContext";
+import { useSocket } from "../../context/SocketContext";
 
 function RoomListPage() {
   const [rooms, setRooms] = useState([]);
+  const { currentRoom } = useRoom();
+  const socket = useSocket();
+
   useEffect(() => {
     const fetchrooms = async () => {
       const response = await fetch("http://localhost:5454/rooms");
@@ -12,6 +17,7 @@ function RoomListPage() {
       setRooms(data.reverse());
     };
     fetchrooms();
+    currentRoom && socket.emit("leaveRoom", currentRoom);
   }, [setRooms]);
 
   const name = localStorage.getItem("name");

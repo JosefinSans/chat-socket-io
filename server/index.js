@@ -1,10 +1,10 @@
 import express from "express";
 import http from "http";
 import cors from "cors";
-import { messageSchema } from "./models/messageModel.js";
-import { roomSchema } from "./models/roomModel.js";
-import connectDB from "./config/db.js";
-import { socketHandler } from "./sockets/socket.js";
+import { messageSchema } from "./src/models/messageModel.js";
+import { roomSchema } from "./src/models/roomModel.js";
+import connectDB from "./src/config/db.js";
+import { socketHandler } from "./src/sockets/socket.js";
 
 const PORT = 5454;
 

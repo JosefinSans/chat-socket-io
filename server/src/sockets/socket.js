@@ -3,7 +3,7 @@ import { messageSchema } from "../models/messageModel.js";
 import { roomSchema } from "../models/roomModel.js";
 import { Server } from "socket.io";
 import cors from "cors";
-import { app } from "../../index.js";
+// import { app } from "../index.js";
 export const socketHandler = (server) => {
   const io = new Server(server, {
     cors: {

@@ -4,7 +4,6 @@ import { useState } from "react";
 
 function HomePage() {
   const navigate = useNavigate();
-
   const [name, setName] = useState("");
 
   const handleChange = (e) => {
@@ -15,13 +14,7 @@ function HomePage() {
     e.preventDefault();
     localStorage.setItem("name", name);
     localStorage.setItem("id", Date.now());
-    // console.log(localStorage.getItem("id"));
-    // socket?.connect();
     console.log("connected");
-    //   const socket = io("http://localhost:5454");
-    //   socket.on("connect", () => {
-    //     console.log("connected");
-
     !name ? alert("enter the name") : navigate("/rooms");
   };
 

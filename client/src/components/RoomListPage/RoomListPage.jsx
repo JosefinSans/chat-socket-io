@@ -11,13 +11,13 @@ function RoomListPage() {
   const socket = useSocket();
 
   useEffect(() => {
+    currentRoom && socket.emit("leaveRoom", currentRoom);
     const fetchrooms = async () => {
       const response = await fetch("http://localhost:5454/rooms");
       const data = await response.json();
       setRooms(data.reverse());
     };
     fetchrooms();
-    currentRoom && socket.emit("leaveRoom", currentRoom);
   }, [setRooms]);
 
   const name = localStorage.getItem("name");

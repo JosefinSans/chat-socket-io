@@ -13,9 +13,11 @@ function ChatPage() {
 
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const [online, setOnline] = useState(0);
 
   const userID = localStorage.getItem("id");
   const navigate = useNavigate();
+
   function handleLeaveRoom() {
     navigate("/rooms");
     socket.emit("leaveRoom", location.state.id);
@@ -23,11 +25,15 @@ function ChatPage() {
 
   useEffect(() => {
     socket.emit("joinRoom", location.state.id);
+
     setCurrentRoom(location.state.id);
+
+    console.log(location.state.id);
+
     const fetchMessages = async (roomID) => {
       const response = await fetch(`http://localhost:5454/messages/${roomID}`);
       const data = await response.json();
-      setMessages(data); // Реверсируем, чтобы последние сообщения были внизу
+      setMessages(data);
     };
     fetchMessages(location.state.id);
 
@@ -35,10 +41,15 @@ function ChatPage() {
       setMessages((prevMessages) => [message, ...prevMessages]);
     });
 
+    socket.on("roomData", (count) => {
+      setOnline(count.userCount);
+      console.log(userCount);
+    });
+
     return () => {
       socket.off("newMessage");
     };
-  }, [socket]);
+  }, []);
 
   function handleSendMessage() {
     if (message.trim()) {
@@ -67,7 +78,7 @@ function ChatPage() {
       <header className="bg-white shadow p-4 flex justify-between">
         <div>
           <h1 className="text-2xl font-bold">{location.state.id}</h1>
-          <p className="text-gray-600"> participants</p>
+          <p className="text-gray-600">{online} online</p>
         </div>
         <button
           onClick={handleLeaveRoom}

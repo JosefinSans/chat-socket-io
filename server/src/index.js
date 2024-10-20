@@ -8,7 +8,7 @@ import { socketHandler } from "./sockets/socket.js";
 
 const PORT = 5454;
 
-const app = express();
+export const app = express();
 app.use(cors());
 app.use(express.json());
 const server = http.createServer(app);

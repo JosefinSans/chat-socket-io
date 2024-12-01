@@ -38,7 +38,9 @@ export const socketHandler = (server) => {
         ));
 
       if (!countUsers || countUsers.size === 0) {
-        await axios.delete(`http://localhost:5454/rooms/${roomID}`);
+        await axios.delete(
+          `https://chat-socket-io-6.onrender.com/rooms/${roomID}`
+        );
         // console.log(`room delete ${roomID}`);
       }
     });

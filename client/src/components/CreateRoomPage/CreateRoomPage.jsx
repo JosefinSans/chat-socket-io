@@ -13,10 +13,13 @@ const CreateRoomPage = () => {
       alert("Participant limit must be at least 2");
       return;
     }
-    const res = await axios.post("http://localhost:5454/createroom", {
-      name: roomName,
-      countUsers: participantLimit,
-    });
+    const res = await axios.post(
+      "https://chat-socket-io-6.onrender.com/createroom",
+      {
+        name: roomName,
+        countUsers: participantLimit,
+      }
+    );
 
     navigate("/rooms");
     console.log("Room created:", res.data._id);

@@ -31,7 +31,9 @@ function ChatPage() {
     console.log(location.state.id);
 
     const fetchMessages = async (roomID) => {
-      const response = await fetch(`http://localhost:5454/messages/${roomID}`);
+      const response = await fetch(
+        `https://chat-socket-io-6.onrender.com/messages/${roomID}`
+      );
       const data = await response.json();
       setMessages(data);
     };

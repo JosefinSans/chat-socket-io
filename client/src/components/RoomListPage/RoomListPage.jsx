@@ -14,7 +14,9 @@ function RoomListPage() {
   useEffect(() => {
     currentRoom && socket.emit("leaveRoom", currentRoom);
     const fetchrooms = async () => {
-      const response = await fetch("http://localhost:5454/rooms");
+      const response = await fetch(
+        "https://chat-socket-io-6.onrender.com/rooms"
+      );
       const data = await response.json();
       setRooms(data.reverse());
     };

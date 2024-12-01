@@ -5,7 +5,7 @@ import io from "socket.io-client";
 const SocketContext = createContext();
 
 export function SocketProvider({ children }) {
-  const socket = io("http://localhost:5454");
+  const socket = io("https://chat-socket-io-6.onrender.com");
 
   return (
     <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>

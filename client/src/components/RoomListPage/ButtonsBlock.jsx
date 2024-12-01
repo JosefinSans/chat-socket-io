@@ -15,18 +15,19 @@ export default function ButtonsBlock() {
   }
 
   return (
-    <div className="flex mt-[30px] flex-row text-xl gap-4">
-      <button
-        onClick={handleDisconnect}
-        className="bg-red-600 px-[10px] py-[5px] rounded-lg text-white"
-      >
-        Leave
-      </button>{" "}
+    <div className="flex mt-[30px] flex-col text-3xl z-50 w-[300px] gap-4">
+      {" "}
       <button
         onClick={handleCreateRoom}
-        className="bg-green-400 px-[10px] py-[5px] rounded-lg text-white"
+        className="bg-gray-700 p-2 rounded-md text-white"
       >
         create new room
+      </button>
+      <button
+        onClick={handleDisconnect}
+        className="bg-fuchsia-500 p-2 rounded-md text-white"
+      >
+        Leave
       </button>
     </div>
   );

@@ -4,6 +4,7 @@ import ListBlock from "./ListBlock";
 import ButtonsBlock from "./ButtonsBlock";
 import { useRoom } from "../../context/RoomContext";
 import { useSocket } from "../../context/SocketContext";
+import AnimatedBackground from "../../bg-animate/AnimatedBackground";
 
 function RoomListPage() {
   const [rooms, setRooms] = useState([]);
@@ -23,12 +24,16 @@ function RoomListPage() {
   const name = localStorage.getItem("name");
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <h1 className="text-2xl font-bold mb-6">
-        Hello {name}! Available Chats:
-      </h1>
-      <ListBlock rooms={rooms} />
-      <ButtonsBlock />
+    <div className="flex font-main flex-col items-center justify-center  relative  h-screen bg-gray-900">
+      <AnimatedBackground />
+      <div className="bg-white bg-opacity-5 p-16  rounded-lg flex flex-col items-center justify-center ">
+        <h1 className="text-4xl text-gray-200 font-bold mb-6">
+          Hi <span className="text-bold">{name}!</span>{" "}
+          <span className="text-3xl text-fuchsia-600">Join To Room ↓</span>
+        </h1>
+        <ListBlock rooms={rooms} />
+        <ButtonsBlock />
+      </div>
     </div>
   );
 }

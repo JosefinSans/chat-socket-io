@@ -23,7 +23,7 @@ const CreateRoomPage = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-100">
+    <div className="flex font-main flex-col h-screen bg-gray-100">
       <header className="bg-white shadow p-4 flex justify-between">
         <h1 className="text-2xl font-bold">Create Room</h1>
       </header>

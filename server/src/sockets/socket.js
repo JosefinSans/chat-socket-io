@@ -3,22 +3,20 @@ import { messageSchema } from "../models/messageModel.js";
 import { roomSchema } from "../models/roomModel.js";
 import { Server } from "socket.io";
 import cors from "cors";
-// import { app } from "../index.js";
+
 export const socketHandler = (server) => {
   const io = new Server(server, {
     cors: {
-      origin: "http://localhost:5173",
+      origin: "http://localhost:5174",
     },
   });
 
   io.on("connection", (socket) => {
-    // console.log(io.sockets.adapter.rooms.has("67145c192e7d18b737bf52b8"));
     console.log("user connected " + socket.id);
 
     socket.on("joinRoom", async (roomID) => {
       socket.join(roomID);
       console.log(`user ${socket.id} connected ro ${roomID}`);
-      // console.log(countUsers.size);
       const countUsers = io.sockets.adapter.rooms.get(roomID);
       countUsers &&
         (await roomSchema.updateOne(
@@ -32,8 +30,6 @@ export const socketHandler = (server) => {
       socket.leave(roomID);
       const countUsers = io.sockets.adapter.rooms.get(roomID);
       console.log(`user leaved room ${roomID}`);
-      // if (rooms[roomID]) {
-      //   rooms[roomID]--;
 
       countUsers &&
         (await roomSchema.updateOne(
@@ -41,11 +37,9 @@ export const socketHandler = (server) => {
           { $set: { online: countUsers.size } }
         ));
 
-      // io.to(roomID).emit("roomData", { userCount: rooms[roomID] });
-
       if (!countUsers || countUsers.size === 0) {
         await axios.delete(`http://localhost:5454/rooms/${roomID}`);
-        console.log(`room delete ${roomID}`);
+        // console.log(`room delete ${roomID}`);
       }
     });
 
@@ -61,7 +55,7 @@ export const socketHandler = (server) => {
     });
 
     socket.on("disconnect", async () => {
-      console.log("User disconnected: " + socket.id);
+      // console.log("User disconnected: " + socket.id);
 
       const isExistCheck = (key) => {
         return io.sockets.adapter.rooms.has(key.toString());
@@ -78,7 +72,7 @@ export const socketHandler = (server) => {
 
         if (invalidItemIds.length > 0) {
           await roomSchema.deleteMany({ _id: { $in: invalidItemIds } });
-          console.log(`Удалены комнаты с ID: ${invalidItemIds.join(", ")}`);
+          // console.log(`Удалены комнаты с ID: ${invalidItemIds.join(", ")}`);
         }
       } catch (error) {
         console.error("Ошибка при удалении комнат:", error);

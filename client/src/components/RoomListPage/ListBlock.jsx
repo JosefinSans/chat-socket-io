@@ -9,30 +9,31 @@ export default function ListBlock({ rooms }) {
   }
 
   return (
-    <ul className="w-full max-w-md bg-white rounded-lg shadow-md">
+    <ul className="w-full max-w-md z-40 bg-white rounded-lg shadow-md">
       {rooms.map((chat) => (
         <li key={chat._id} className="border-b last:border-b-0">
-          <p
-            className={`block p-4 ${
-              chat.online === chat.countUsers
-                ? "bg-slate-400"
-                : "hover:bg-gray-200 transition"
+          <div
+            className={`mx-3 flex flex-row justify-between  align-center p-4 ${
+              chat.online === chat.countUsers ? "bg-slate-400" : ""
             }`}
           >
-            {chat.name}{" "}
-            {chat.online ? (
-              <span className="ml-[50px]">
-                online: <span>{chat.online}</span>/{chat.countUsers}
-              </span>
-            ) : (
-              <span>JUST CREATED, lets join first!</span>
-            )}
+            <div className="text-2xl">{chat.name}</div>
+            <div>
+              {chat.online && (
+                <span className="ml-[50px] text-xl ">
+                  limit: <span>{chat.online}</span>/{chat.countUsers}
+                </span>
+              )}
+            </div>
             {chat.online === chat.countUsers ? null : (
-              <button onClick={() => handleChoseRoom(chat._id)}>
-                joinRoom
+              <button
+                className="text-gray-700 text-2xl"
+                onClick={() => handleChoseRoom(chat._id)}
+              >
+                JOIN
               </button>
             )}
-          </p>
+          </div>
         </li>
       ))}
     </ul>

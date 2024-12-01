@@ -1,15 +1,21 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 
-export default function connectDB() {
-  mongoose
-    .connect(
-      "mongodb+srv://filcinasona:1C5SSfgMrj30K0wJ@cluster0.mptdv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
-      {
-        useUnifiedTopology: true,
-      }
-    )
-    .then(() => {
-      console.log("connected to db");
-    })
-    .catch((err) => console.log(err));
+dotenv.config();
+
+const USER = process.env.DB_USER;
+const PASSWORD = process.env.DB_PASSWORD;
+
+export default async function connectDB() {
+  try {
+    console.log("hochu tebya");
+    await mongoose.connect(
+      `mongodb+srv://${USER}:${PASSWORD}@cluster0.jckgr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
+    );
+    console.log("db done");
+  } catch (error) {
+    console.error("error: ", error);
+  } finally {
+    console.log("connection closed");
+  }
 }

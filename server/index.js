@@ -5,16 +5,18 @@ import { messageSchema } from "./src/models/messageModel.js";
 import { roomSchema } from "./src/models/roomModel.js";
 import connectDB from "./src/config/db.js";
 import { socketHandler } from "./src/sockets/socket.js";
+import dotenv from "dotenv";
 
-const PORT = 5454;
-
+const PORT = process.env.PORT;
+dotenv.config();
 export const app = express();
 app.use(cors());
 app.use(express.json());
+connectDB();
 const server = http.createServer(app);
 socketHandler(server);
 
-connectDB();
+// connectDB();
 
 app.get("/messages/:roomID", async (req, res) => {
   const { roomID } = req.params;
@@ -44,7 +46,7 @@ app.get("/rooms", async (req, res) => {
 app.delete("/rooms/:roomID", async (req, res) => {
   const { roomID } = req.params;
   await roomSchema.findByIdAndDelete(roomID);
-  console.log(`${roomID} was deleted`);
+  // console.log(`${roomID} was deleted`);
 });
 
 server.listen(PORT, () => {

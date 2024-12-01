@@ -74,7 +74,7 @@ function ChatPage() {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-gray-100">
+    <div className="flex font-main flex-col h-screen bg-gray-100">
       <header className="bg-white shadow p-4 flex justify-between">
         <div>
           <h1 className="text-2xl font-bold">{location.state.id}</h1>
